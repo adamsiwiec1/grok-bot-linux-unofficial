@@ -1,7 +1,7 @@
 PREFIX ?= /usr/local
 UPDATER_BIN ?= $(HOME)/.local/bin/grok-bot-update
 
-.PHONY: help detect build run update install-deb install-updater clean
+.PHONY: help detect build run update install-deb install-updater install-user uninstall-user clean
 
 help:
 	@echo "Grok Bot Linux port"
@@ -12,6 +12,8 @@ help:
 	@echo "  make run          Launch the staged app from dist/"
 	@echo "  make install-deb  Alias for make update"
 	@echo "  make install-updater  Add grok-bot-update to ~/.local/bin"
+	@echo "  make install-user     Install the built tree into ~/.local (no root, any distro)"
+	@echo "  make uninstall-user   Remove that user install"
 	@echo "  make clean        Remove dist/ (keeps .cache/ downloads)"
 
 detect:
@@ -37,6 +39,12 @@ install-updater:
 	fi
 	@ln -sfn "$(abspath scripts/update.sh)" "$(UPDATER_BIN)"
 	@echo "installed $(UPDATER_BIN)"
+
+install-user:
+	./scripts/install-user.sh
+
+uninstall-user:
+	./scripts/uninstall-user.sh
 
 clean:
 	rm -rf dist
