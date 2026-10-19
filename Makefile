@@ -1,7 +1,7 @@
 PREFIX ?= /usr/local
 UPDATER_BIN ?= $(HOME)/.local/bin/grok-bot-update
 
-.PHONY: help detect build run update install-deb install-updater clean
+.PHONY: help detect build run update install-deb install-updater mac mac-install clean
 
 help:
 	@echo "Grok Bot Linux port"
@@ -12,6 +12,8 @@ help:
 	@echo "  make run          Launch the staged app from dist/"
 	@echo "  make install-deb  Alias for make update"
 	@echo "  make install-updater  Add grok-bot-update to ~/.local/bin"
+	@echo "  make mac          macOS 11 only: rebuild the Mac app on Electron 37 (dist/macos)"
+	@echo "  make mac-install  Same, then copy Grok Bot.app to /Applications"
 	@echo "  make clean        Remove dist/ (keeps .cache/ downloads)"
 
 detect:
@@ -37,6 +39,12 @@ install-updater:
 	fi
 	@ln -sfn "$(abspath scripts/update.sh)" "$(UPDATER_BIN)"
 	@echo "installed $(UPDATER_BIN)"
+
+mac:
+	./scripts/build-macos.sh
+
+mac-install:
+	./scripts/build-macos.sh --install
 
 clean:
 	rm -rf dist
