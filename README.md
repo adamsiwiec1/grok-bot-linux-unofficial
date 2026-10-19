@@ -43,9 +43,11 @@ Or skip the package and run the tree directly:
 ```bash
 make build
 version="$(make -s detect)"
-"./dist/Grok_Bot_${version}_linux_x64/grok-bot" \
-  --no-sandbox --ozone-platform-hint=auto
+"./dist/Grok_Bot_${version}_linux_x64/grok-bot" --ozone-platform-hint=auto
 ```
+
+(`make run` does the same. Add `--no-sandbox` only where unprivileged user
+namespaces are disabled, as in some containers; see below.)
 
 AppImage (needs FUSE 2):
 
@@ -77,7 +79,7 @@ Arch, install GTK3, NSS, ALSA, and Mesa, then:
 
 ```bash
 tar -xzf dist/Grok_Bot_*_linux_x64.tar.gz
-./Grok_Bot_*_linux_x64/grok-bot --no-sandbox --ozone-platform-hint=auto
+./Grok_Bot_*_linux_x64/grok-bot --ozone-platform-hint=auto
 ```
 
 ## Build options
