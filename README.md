@@ -73,6 +73,7 @@ tar -xzf dist/Grok_Bot_*_linux_x64.tar.gz
 |---|---|
 | `make detect` | Newest stable version from Cursor's update API |
 | `make build` | Tarball + `.deb` + AppImage in `dist/` |
+| `make test` | Smoke-test the staged build: load every native addon, launch under Xvfb |
 | `make update` | Build, validate, and install only when needed |
 | `./scripts/update.sh --check` | Compare installed and latest versions |
 | `./scripts/build.sh X.Y.Z` | Pin a specific upstream version |
@@ -85,6 +86,15 @@ Electron flags go in `~/.config/grok-bot/electron-flags.conf`, one per
 line.
 
 NVIDIA + black window: add `--ozone-platform=x11` to that file.
+
+After a build, or when a new upstream release lands, run `make test`
+(`scripts/smoke-test.sh [--no-launch] [APP_DIR]`). It loads each addon
+listed in the payload's `runtime-deps-manifest.json` in the app's own
+Electron, checks that every function the wrapper re-exports exists, and
+does a small real call: a process scan, a bash parse, the notification
+query. It also fails if a Windows `.node` is still where Node would load
+it. If `Xvfb` is installed, it then starts the app and looks for
+module-load errors in its log.
 
 ## Updates
 
