@@ -8,9 +8,10 @@ and to open issues.
 ## What the continuation adds
 
 It still builds the official Grok Bot desktop app for Linux, and it now also
-supports older macOS versions that the official Grok Bot installer has dropped.
+supports older macOS versions that the official Grok Bot installer does not.
+
 Install mirrors are set up so it is quick to get running across distros: apt,
-dnf, AUR, and Homebrew.
+dnf, AUR, and Homebrew. Please visit the line above for the latest install commands.
 
 ## Credit
 
